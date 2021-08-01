@@ -12,8 +12,7 @@ import 'package:shuttleuserapp/pages/register/login.dart';
 import 'package:shuttleuserapp/widgets/errorWidget.dart';
 
 class Homepage extends StatefulWidget {
-  final String shuttleId;
-  Homepage({Key key, @required this.shuttleId}) : super(key: key);
+  Homepage({Key key}) : super(key: key);
 
   _HomepageState createState() => _HomepageState();
 }
@@ -41,6 +40,7 @@ class _HomepageState extends State<Homepage> {
         //u.uid = temp.uid;
         u.userName = temp.userName;
         u.regNo = temp.regNo;
+
         // u.bio = temp.bio;
         // u.dob = temp.dob;
         // u.gender = temp.gender;

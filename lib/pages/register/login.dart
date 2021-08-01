@@ -254,10 +254,7 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                       context,
                                       CupertinoPageRoute(
-                                          builder: (context) => Homepage(
-                                                shuttleId:
-                                                    _regNoController.text,
-                                              )),
+                                          builder: (context) => Homepage()),
                                     );
                                   }
                                 }

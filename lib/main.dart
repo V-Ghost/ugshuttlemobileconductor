@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shuttleuserapp/models/shuttles.dart';
 import 'package:shuttleuserapp/models/users.dart';
+import 'package:shuttleuserapp/pages/landingPages/homepage.dart';
 
 import 'package:shuttleuserapp/pages/register/login.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
     FirebaseAuth.instance.authStateChanges().listen((firebaseUser) {
       if (firebaseUser == null) {
         loggedIn = false;
-        myPrefs.setBool("loggedIn", false);
+        myPrefs.setBool("not loggedIn", false);
       } else {
         loggedIn = true;
         myPrefs.setBool("loggedIn", true);
@@ -71,6 +72,8 @@ class MyApp extends StatelessWidget {
             }
 
             if (snapshot.connectionState == ConnectionState.done) {
+              print("locked");
+              print(loggedIn);
               return MaterialApp(
                 // initialRoute: '/',
 
@@ -88,7 +91,7 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'Merriweather',
                   // visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-                home: Login(),
+                home: loggedIn ? Homepage() : Login(),
                 //  home:  UserDetails(),
               );
             }

@@ -12,15 +12,21 @@ class Seats extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: 5),
       child: SafeArea(
-        child: Container(
-          height: 20,
-          width: 20,
-          decoration: BoxDecoration(
-            color: color == null ? Colors.grey : Colors.green,
-            // border: Border(bottom: BorderSide()),
-            borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(100.0),
-              bottomLeft: const Radius.circular(100.0),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 8.0,
+            left: 10,
+          ),
+          child: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              color: color == null ? Colors.grey : Colors.green,
+              // border: Border(bottom: BorderSide()),
+              borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(100.0),
+                topRight: const Radius.circular(100.0),
+              ),
             ),
           ),
         ),

@@ -19,13 +19,11 @@ class Users extends ChangeNotifier {
   Users _currentUser;
   CoOrdinates _position;
 
-  
   Users get instance => this;
 
   String get userName => _userName;
 
   Users();
-
 
   CoOrdinates get position => _position;
 
@@ -122,7 +120,8 @@ class Users extends ChangeNotifier {
 // _picture = data['picture'];
 // _gender = data['gender'];
 // _dob = data['dob'].toDate();
-    _uid = data['uid'];
+    _regNo = data['shuttle'];
+
 //_phoneNumber = data['phoneNumber'];
     notifyListeners();
   }
