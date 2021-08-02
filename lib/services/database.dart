@@ -21,8 +21,9 @@ class DatabaseService {
       print(error.toString());
       return error.toString();
     }
-    return shuttleuid;
   }
+
+  toggleSeatState() {}
 
   Future<dynamic> updatelocation(Position position) async {
     try {

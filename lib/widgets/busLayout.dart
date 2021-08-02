@@ -1,7 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shuttleuserapp/models/users.dart';
 import 'seats.dart';
 
-class BusLayout extends StatelessWidget {
+class BusLayout extends StatefulWidget {
+  const BusLayout({Key key}) : super(key: key);
+
+  @override
+  _BusLayoutState createState() => _BusLayoutState();
+}
+
+class _BusLayoutState extends State<BusLayout> {
+  Users u;
+
+  listenSeatStateChange() {
+    // CollectionReference reference = FirebaseFirestore.instance
+    //     .collection('shuttles')
+    //     .doc(u.regNo)
+    //     .collection("seats");
+    // reference.snapshots().listen((querySnapshot) {
+    //   querySnapshot.docChanges.forEach((change) {
+    //     print("we dey");
+    //     print(change.doc.data());
+    //   });
+    // });
+  }
+
+  @override
+  void initState() {
+    u = Provider.of<Users>(context, listen: false);
+
+    listenSeatStateChange();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -27,7 +61,7 @@ class BusLayout extends StatelessWidget {
                   Seats(),
                   Seats(),
                   SizedBox(
-                    height: 120,
+                    height: 150,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 5.0),
