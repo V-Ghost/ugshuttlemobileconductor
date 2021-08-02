@@ -7,7 +7,7 @@ class Seats extends StatefulWidget {
   final Color color;
   final String id;
 
-  Seats({this.color, this.id});
+  Seats({this.color, @required this.id});
 
   @override
   _SeatsState createState() => _SeatsState();
