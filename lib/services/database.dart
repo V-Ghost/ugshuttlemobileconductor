@@ -23,7 +23,26 @@ class DatabaseService {
     }
   }
 
-  toggleSeatState() {}
+  toggleSeatState(bool isTrue, String seatId) async {
+    String available;
+    if (isTrue) {
+      available = "true";
+    } else {
+      available = "false";
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection('shuttles')
+          .doc(shuttleuid)
+          .collection("seats")
+          .doc(seatId)
+          .update({"available": available});
+      return true;
+    } catch (error) {
+      print(error.toString());
+      return error.toString();
+    }
+  }
 
   Future<dynamic> updatelocation(Position position) async {
     try {
