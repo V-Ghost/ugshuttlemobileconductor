@@ -45,14 +45,14 @@ class _BusPageState extends State<BusPage> {
               child: Row(children: [
                 Container(
                   child: Row(children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(
-                        Icons.arrow_back_sharp,
-                        color: Colors.grey,
-                        size: 30,
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () => Navigator.pop(context),
+                    //   child: Icon(
+                    //     Icons.arrow_back_sharp,
+                    //     color: Colors.grey,
+                    //     size: 30,
+                    //   ),
+                    // ),
                     SizedBox(
                       width: 10,
                     ),
@@ -65,7 +65,7 @@ class _BusPageState extends State<BusPage> {
                       width: 20,
                     ),
                     Text(
-                      "Ticket",
+                      "Bus",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

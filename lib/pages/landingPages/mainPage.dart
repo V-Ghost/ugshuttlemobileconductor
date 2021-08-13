@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shuttleuserapp/models/users.dart';
 import 'package:shuttleuserapp/pages/innerPages/busPage.dart';
+import 'package:shuttleuserapp/services/database.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -97,15 +98,14 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
         var speedInMps = position.speed;
 
         print(speedInMps);
-        // DatabaseService(uid: user.uid).updateSpeed(speedInMps);
+        DatabaseService(shuttleuid: u.regNo).updateSpeed(speedInMps);
       });
 
       // permission = await Geolocator.requestPermission();
       positionStream = Geolocator.getPositionStream(
               desiredAccuracy: LocationAccuracy.best, distanceFilter: 1)
-          .listen((Position position) {
-        print(position.latitude);
-        //DatabaseService(uid: user.uid).updatelocation(position);
+          .listen((Position position) async {
+        DatabaseService(shuttleuid: u.regNo).updatelocation(position);
       });
     } else {
       if (_dialog == null) {

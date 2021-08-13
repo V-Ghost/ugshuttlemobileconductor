@@ -37,11 +37,23 @@ class DatabaseService {
           .collection("seats")
           .doc(seatId)
           .update({"available": available});
+      await numberOfSeats();
       return true;
     } catch (error) {
       print(error.toString());
       return error.toString();
     }
+  }
+
+  numberOfSeats() async {
+    var result = await FirebaseFirestore.instance
+        .collection('shuttles')
+        .doc(shuttleuid)
+        .collection("seats")
+        .where("available", isEqualTo: "true")
+        .get();
+
+    print(result.size);
   }
 
   Future<dynamic> updatelocation(Position position) async {

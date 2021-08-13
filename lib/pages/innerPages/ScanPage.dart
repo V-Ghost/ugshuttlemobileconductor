@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScanPage extends StatefulWidget {
@@ -13,6 +15,7 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode result;
+  String message;
   QRViewController controller;
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -32,21 +35,22 @@ class _ScanPageState extends State<ScanPage> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-            ),
+          //Expanded(
+          //flex: 5,
+          // child:
+          QRView(
+            key: qrKey,
+            onQRViewCreated: _onQRViewCreated,
           ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: (result != null)
-                  ? Text('Barcode Type:   Data: ${result.code}')
-                  : Text('Scan a code'),
-            ),
-          )
+          // ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Center(
+          //     child: (result != null)
+          //         ? Text('Barcode Type:   Data: ${result.code}')
+          //         : Text('Scan a code'),
+          //   ),
+          // )
         ],
       ),
     );
@@ -54,10 +58,37 @@ class _ScanPageState extends State<ScanPage> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+    controller.scannedDataStream.listen((scanData) async {
+      var trip = await FirebaseFirestore.instance
+          .collection("trips")
+          .doc(scanData.code)
+          .get();
+      if (trip.data()["status"] == "booked") {
+        await FirebaseFirestore.instance
+            .collection("trips")
+            .doc(scanData.code)
+            .update({"status": "ongoing"});
+        Fluttertoast.showToast(
+            msg: "Done",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "No Booked Trip",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+      // setState(() {
+      //   result = scanData;
+      // });
     });
   }
 }
